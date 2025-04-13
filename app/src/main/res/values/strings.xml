@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Android Assignment 1</string>
+    <string name="app_logo">App Logo</string>
+    <string name="search">Search</string>
+    <string name="search_for_products">Search for products</string>
+    <string name="category">Category</string>
+    <string name="sort_by">Sort By Price</string>
+    <string name="brands">Brands</string>
+    <string name="brand_a">Brand A</string>
+    <string name="brand_b">Brand B</string>
+    <string name="on_sale_only">On Sale Only</string>
+    <string name="show_currently_unavailable">Show currently unavailable items.</string>
+    <string name="increasing">Increasing</string>
+    <string name="decreasing">Decreasing</string>
+</resources>
