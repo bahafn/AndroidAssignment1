@@ -1,4 +1,6 @@
-package com.example.androidassignment1.DataAccess;
+package com.example.androidassignment1.DataAccess.Item;
+
+import androidx.annotation.NonNull;
 
 public class Item {
     private String name;
@@ -55,6 +57,7 @@ public class Item {
         this.imageID = imageID;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getName();

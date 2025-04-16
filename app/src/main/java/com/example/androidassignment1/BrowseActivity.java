@@ -14,9 +14,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidassignment1.DataAccess.Item;
-import com.example.androidassignment1.DataAccess.ItemDAFactory;
-import com.example.androidassignment1.DataAccess.iItemDA;
+import com.example.androidassignment1.DataAccess.Item.Item;
+import com.example.androidassignment1.DataAccess.Item.ItemDAFactory;
+import com.example.androidassignment1.DataAccess.Item.iItemDA;
 
 import java.util.List;
 

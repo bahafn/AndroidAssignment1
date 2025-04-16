@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidassignment1.DataAccess.Item;
+import com.example.androidassignment1.DataAccess.Item.Item;
 
 import java.util.List;
 

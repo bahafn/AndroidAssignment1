@@ -99,4 +99,8 @@ public class ItemActivity extends AppCompatActivity {
         orderedAmount--;
         txtAmount.setText(String.valueOf(orderedAmount));
     }
+
+    public void btnAddToCartOnClick(View view) {
+
+    }
 }
