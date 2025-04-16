@@ -34,8 +34,8 @@
                 android:onClick="searchOnClick" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
-            android:id="@+id/lvItems"
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvItems"
             android:layout_marginTop="10dp"
             android:background="#f2f1e9"
             style="@style/BackgroundStyle"/>

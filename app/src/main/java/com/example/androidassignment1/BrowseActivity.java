@@ -5,14 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidassignment1.DataAccess.Item;
 import com.example.androidassignment1.DataAccess.ItemDAFactory;
@@ -21,7 +21,7 @@ import com.example.androidassignment1.DataAccess.iItemDA;
 import java.util.List;
 
 public class BrowseActivity extends AppCompatActivity {
-    private ListView lvItems;
+    private RecyclerView rvItems;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -42,20 +42,20 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
-        lvItems = findViewById(R.id.lvItems);
+        rvItems = findViewById(R.id.rvItems);
+        rvItems.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void showItems() {
         iItemDA itemDA = ItemDAFactory.getInstance(sharedPreferences);
         List<Item> items = itemDA.getAllItems();
 
-        ArrayAdapter<Item> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
-        lvItems.setAdapter(adapter);
+        ItemAdapter adapter = new ItemAdapter(this, items);
+        rvItems.setAdapter(adapter);
     }
 
     public void searchOnClick(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
-        finish();
     }
 }
