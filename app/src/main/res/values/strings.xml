@@ -12,4 +12,8 @@
     <string name="show_currently_unavailable">Show currently unavailable items.</string>
     <string name="increasing">Increasing</string>
     <string name="decreasing">Decreasing</string>
+    <string name="product_image">Product Image</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_price">$29.99</string>
+    <string name="add_to_cart">Add to Cart</string>
 </resources>
