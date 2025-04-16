@@ -33,13 +33,8 @@ public class ItemDA implements iItemDA {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Item> getItemsByName(String name) {
-        String itemsString = prefs.getString(ITEMS, null);
-        if (itemsString == null)
-            return createItems();
-
-        List<Item> items = gson.fromJson(itemsString, List.class);
+        List<Item> items = getAllItems();
         return items.stream().filter(item -> item.getName().equals(name)).collect(Collectors.toList());
     }
 
