@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -38,6 +39,7 @@ public class ItemActivity extends AppCompatActivity {
 
         setupViews();
         showItemData();
+        setupBackButton();
     }
 
     private void setupViews() {
@@ -57,5 +59,17 @@ public class ItemActivity extends AppCompatActivity {
         float price = intent.getFloatExtra(PRICE, 0);
         String priceString = String.format(Locale.getDefault(), "%.1f$", price);
         txtProductPrice.setText(priceString);
+    }
+
+    /** Changes the behaviour of the back button. */
+    private void setupBackButton() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(ItemActivity.this, BrowseActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
