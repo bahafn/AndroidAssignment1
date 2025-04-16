@@ -12,12 +12,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Locale;
+
 public class ItemActivity extends AppCompatActivity {
     public static final String NAME = "NAME";
     public static final String DESCRIPTION = "DESCRIPTION";
     public static final String PRICE = "PRICE";
     public static final String IMAGE = "IMAGE";
-    public static final String AMOUNT = "AMOUNT";
 
     private TextView txtProductName;
     private TextView txtProductDescription;
@@ -51,7 +52,10 @@ public class ItemActivity extends AppCompatActivity {
 
         txtProductName.setText(intent.getStringExtra(NAME));
         txtProductDescription.setText(intent.getStringExtra(DESCRIPTION));
-        txtProductPrice.setText(intent.getStringExtra(PRICE));
         ivImage.setImageDrawable(ContextCompat.getDrawable(this, intent.getIntExtra(IMAGE, 0)));
+
+        float price = intent.getFloatExtra(PRICE, 0);
+        String priceString = String.format(Locale.getDefault(), "%.1f$", price);
+        txtProductPrice.setText(priceString);
     }
 }
