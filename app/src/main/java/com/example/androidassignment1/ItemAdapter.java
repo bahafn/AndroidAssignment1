@@ -44,7 +44,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         txtName.setText(item.getName());
 
         TextView txtPrice = cardView.findViewById(R.id.txtPrice);
-        txtPrice.setText(item.getPrice() + "");
+        txtPrice.setText(String.valueOf(item.getPrice()));
 
         cardView.setOnClickListener(v -> {
             Intent intent = new Intent(activity, ItemActivity.class);
@@ -53,6 +53,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             intent.putExtra(ItemActivity.DESCRIPTION, item.getDescription());
             intent.putExtra(ItemActivity.PRICE, item.getPrice());
             intent.putExtra(ItemActivity.IMAGE, item.getImageID());
+            intent.putExtra(ItemActivity.AMOUNT, item.getAmount());
 
             activity.startActivity(intent);
             activity.finish();
@@ -65,7 +66,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView cardView;
+        private final CardView cardView;
 
         public ViewHolder(CardView cardView) {
             super(cardView);

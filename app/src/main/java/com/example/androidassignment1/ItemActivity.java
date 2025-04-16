@@ -2,6 +2,7 @@ package com.example.androidassignment1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,11 +21,18 @@ public class ItemActivity extends AppCompatActivity {
     public static final String DESCRIPTION = "DESCRIPTION";
     public static final String PRICE = "PRICE";
     public static final String IMAGE = "IMAGE";
+    public static final String AMOUNT = "AMOUNT";
 
     private TextView txtProductName;
     private TextView txtProductDescription;
     private TextView txtProductPrice;
     private ImageView ivImage;
+    private TextView txtAmount;
+
+    /** The amount of items available. */
+    private int amount;
+    /** The amount the user wants to add to cart. */
+    private int orderedAmount = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +46,7 @@ public class ItemActivity extends AppCompatActivity {
         });
 
         setupViews();
-        showItemData();
+        getItemData();
         setupBackButton();
     }
 
@@ -47,10 +55,13 @@ public class ItemActivity extends AppCompatActivity {
         txtProductDescription = findViewById(R.id.txtDescription);
         txtProductPrice = findViewById(R.id.txtProductPrice);
         ivImage = findViewById(R.id.ivImage);
+        txtAmount = findViewById(R.id.txtAmount);
     }
 
-    private void showItemData() {
+    private void getItemData() {
         Intent intent = getIntent();
+
+        amount = intent.getIntExtra(AMOUNT, 0);
 
         txtProductName.setText(intent.getStringExtra(NAME));
         txtProductDescription.setText(intent.getStringExtra(DESCRIPTION));
@@ -71,5 +82,21 @@ public class ItemActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void btnIncreaseOnClick(View view) {
+        if (orderedAmount == amount)
+            return;
+
+        orderedAmount++;
+        txtAmount.setText(String.valueOf(orderedAmount));
+    }
+
+    public void btnDecreaseOnClick(View view) {
+        if (orderedAmount == 0)
+            return;
+
+        orderedAmount--;
+        txtAmount.setText(String.valueOf(orderedAmount));
     }
 }

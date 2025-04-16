@@ -54,7 +54,8 @@
                 android:text="-"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="0dp"/>
+                android:padding="0dp"
+                android:onClick="btnDecreaseOnClick"/>
 
         <TextView
                 android:id="@+id/txtAmount"
@@ -69,7 +70,8 @@
                 android:text="+"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="0dp"/>
+                android:padding="0dp"
+                android:onClick="btnIncreaseOnClick"/>
     </LinearLayout>
 
     <ScrollView
