@@ -25,28 +25,29 @@ public class ItemDA implements iItemDA {
     }
 
     @Override
-    public List<Item> getAllItems() {
+    public List<Item> getAllAvailableItems() {
         String itemsString = prefs.getString(ITEMS, null);
         if (itemsString == null)
             return createItems();
 
         Type listType = new TypeToken<List<Item>>() {}.getType();
-        return gson.fromJson(itemsString, listType);
+        List<Item> items = gson.fromJson(itemsString, listType);
+        return items.stream().filter(item -> item.getAmount() > 0).collect(Collectors.toList());
     }
 
     @Override
     public List<Item> getItemsByName(String name) {
-        return getAllItems().stream().filter(item -> item.getName().equals(name)).collect(Collectors.toList());
+        return getAllAvailableItems().stream().filter(item -> item.getName().equals(name)).collect(Collectors.toList());
     }
 
     @Override
     public Item getItemById(int id) {
-        return getAllItems().stream().filter(item -> item.getId() == id).findFirst().orElse(null);
+        return getAllAvailableItems().stream().filter(item -> item.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public void saveItem(int itemIndex, Item item) {
-        List<Item> items = getAllItems();
+        List<Item> items = getAllAvailableItems();
         items.set(itemIndex, item);
         saveItems(items);
     }
