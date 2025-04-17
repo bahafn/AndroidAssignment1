@@ -1,9 +1,7 @@
 package com.example.androidassignment1;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -22,7 +20,6 @@ import java.util.List;
 
 public class BrowseActivity extends AppCompatActivity {
     private RecyclerView rvItems;
-    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +32,6 @@ public class BrowseActivity extends AppCompatActivity {
             return insets;
         });
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         setupViews();
         showItems();
     }
@@ -47,7 +42,7 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     private void showItems() {
-        iItemDA itemDA = ItemDAFactory.getInstance(sharedPreferences);
+        iItemDA itemDA = ItemDAFactory.getInstance(this);
         List<Item> items = itemDA.getAllItems();
 
         ItemAdapter adapter = new ItemAdapter(this, items);

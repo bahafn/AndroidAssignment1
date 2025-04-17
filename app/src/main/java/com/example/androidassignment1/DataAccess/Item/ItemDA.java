@@ -49,6 +49,7 @@ public class ItemDA implements iItemDA {
 
         String itemsString = gson.toJson(items);
         editor.putString(ITEMS, itemsString);
+        editor.apply();
 
         return items;
     }
