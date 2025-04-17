@@ -4,7 +4,9 @@ import android.content.SharedPreferences;
 
 import com.example.androidassignment1.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,13 +25,13 @@ public class ItemDA implements iItemDA {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Item> getAllItems() {
         String itemsString = prefs.getString(ITEMS, null);
         if (itemsString == null)
             return createItems();
 
-        return gson.fromJson(itemsString, List.class);
+        Type listType = new TypeToken<List<Item>>() {}.getType();
+        return gson.fromJson(itemsString, listType);
     }
 
     @Override
