@@ -3,6 +3,7 @@ package com.example.androidassignment1;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,17 +13,26 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidassignment1.DataAccess.Cart.CartDAFactory;
+import com.example.androidassignment1.DataAccess.Cart.iCartDA;
 import com.example.androidassignment1.DataAccess.Item.Item;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private final List<Item> items;
     private final AppCompatActivity activity;
 
-    public ItemAdapter(AppCompatActivity activity, List<Item> items) {
+    /**
+     * Whether the user is in the BrowseActivity or the CartActivity.
+     */
+    private final boolean browsing;
+
+    public ItemAdapter(AppCompatActivity activity, List<Item> items, boolean browsing) {
         this.items = items;
         this.activity = activity;
+        this.browsing = browsing;
     }
 
     @NonNull
@@ -44,26 +54,64 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         txtName.setText(item.getName());
 
         TextView txtPrice = cardView.findViewById(R.id.txtPrice);
-        txtPrice.setText(String.valueOf(item.getPrice()));
+        txtPrice.setText(String.format(Locale.getDefault(), "%.2f$", item.getPrice()));
 
-        cardView.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, ItemActivity.class);
+        TextView txtDescription = cardView.findViewById(R.id.txtDescription);
+        txtDescription.setText(item.getDescription());
 
-            intent.putExtra(ItemActivity.ID, item.getId());
-            intent.putExtra(ItemActivity.NAME, item.getName());
-            intent.putExtra(ItemActivity.DESCRIPTION, item.getDescription());
-            intent.putExtra(ItemActivity.PRICE, item.getPrice());
-            intent.putExtra(ItemActivity.IMAGE, item.getImageID());
-            intent.putExtra(ItemActivity.AMOUNT, item.getAmount());
+        Button btnPurchase = cardView.findViewById(R.id.btnPurchase);
+        if (browsing) {
+            btnPurchase.setOnClickListener(v -> addToCart(item));
 
-            activity.startActivity(intent);
-            activity.finish();
-        });
+            cardView.setOnClickListener(v -> {
+                Intent intent = new Intent(activity, ItemActivity.class);
+
+                intent.putExtra(ItemActivity.ID, item.getId());
+                intent.putExtra(ItemActivity.NAME, item.getName());
+                intent.putExtra(ItemActivity.DESCRIPTION, item.getDescription());
+                intent.putExtra(ItemActivity.PRICE, item.getPrice());
+                intent.putExtra(ItemActivity.IMAGE, item.getImageID());
+                intent.putExtra(ItemActivity.AMOUNT, item.getAmount());
+
+                activity.startActivity(intent);
+                activity.finish();
+            });
+        }
+        else {
+            btnPurchase.setText(R.string.purchase);
+            btnPurchase.setOnClickListener(v -> purchase(position));
+
+            Button btnCancel = cardView.findViewById(R.id.btnCancel);
+            btnCancel.setVisibility(ViewGroup.VISIBLE);
+            btnCancel.setOnClickListener(v -> cancel(position));
+        }
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    private void addToCart(Item item) {
+        iCartDA cartDA = CartDAFactory.getInstance(activity);
+        item.setAmount(1);
+        cartDA.addToCart(item);
+
+        Intent intent = new Intent(activity, CartActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    private void purchase(int itemIndex) {
+        iCartDA cartDA = CartDAFactory.getInstance(activity);
+        cartDA.checkout(itemIndex);
+        ((CartActivity) activity).showCartItems();
+    }
+
+    private void cancel(int itemIndex) {
+        iCartDA cartDA = CartDAFactory.getInstance(activity);
+        cartDA.removeItem(itemIndex);
+        ((CartActivity) activity).showCartItems();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

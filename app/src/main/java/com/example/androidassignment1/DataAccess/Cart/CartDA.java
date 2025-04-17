@@ -54,6 +54,12 @@ public class CartDA implements iCartDA {
         checkout(cart, itemIndex, true);
     }
 
+    public void removeItem(int itemIndex) {
+        Cart cart = getCart();
+        cart.removeItem(itemIndex);
+        saveCart(cart);
+    }
+
     private void checkout(Cart cart, int itemIndex, boolean changeCart) {
         Item cartItem = cart.getItems().get(itemIndex);
 

@@ -45,7 +45,7 @@ public class BrowseActivity extends AppCompatActivity {
         iItemDA itemDA = ItemDAFactory.getInstance(this);
         List<Item> items = itemDA.getAllAvailableItems();
 
-        ItemAdapter adapter = new ItemAdapter(this, items);
+        ItemAdapter adapter = new ItemAdapter(this, items, true);
         rvItems.setAdapter(adapter);
     }
 

@@ -10,4 +10,5 @@ public interface iCartDA {
     void checkout();
     /** Finalizes purchase of a cart item. */
     void checkout(int itemIndex);
+    void removeItem(int itemIndex);
 }

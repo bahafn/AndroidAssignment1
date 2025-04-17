@@ -29,6 +29,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private TextView txtProductName;
     private TextView txtProductDescription;
+    private TextView txtAvailableAmount;
     private TextView txtProductPrice;
     private ImageView ivImage;
     private TextView txtAmount;
@@ -65,6 +66,7 @@ public class ItemActivity extends AppCompatActivity {
     private void setupViews() {
         txtProductName = findViewById(R.id.txtProductName);
         txtProductDescription = findViewById(R.id.txtDescription);
+        txtAvailableAmount = findViewById(R.id.txtAvailableAmount);
         txtProductPrice = findViewById(R.id.txtProductPrice);
         ivImage = findViewById(R.id.ivImage);
         txtAmount = findViewById(R.id.txtAmount);
@@ -80,14 +82,15 @@ public class ItemActivity extends AppCompatActivity {
                 intent.getFloatExtra(PRICE, 0),
                 intent.getIntExtra(AMOUNT, 0));
 
-        amount = intent.getIntExtra(AMOUNT, 0);
+        amount = item.getAmount();
 
-        txtProductName.setText(intent.getStringExtra(NAME));
-        txtProductDescription.setText(intent.getStringExtra(DESCRIPTION));
-        ivImage.setImageDrawable(ContextCompat.getDrawable(this, intent.getIntExtra(IMAGE, 0)));
+        txtProductName.setText(item.getName());
+        txtProductDescription.setText(item.getDescription());
+        txtAvailableAmount.setText(getString(R.string.in_stock, item.getAmount()));
+        ivImage.setImageDrawable(ContextCompat.getDrawable(this, item.getImageID()));
 
-        float price = intent.getFloatExtra(PRICE, 0);
-        String priceString = String.format(Locale.getDefault(), "%.1f$", price);
+        float price = item.getPrice();
+        String priceString = String.format(Locale.getDefault(), "%.2f$", price);
         txtProductPrice.setText(priceString);
     }
 

@@ -24,4 +24,11 @@
     <string name="total">Total:</string>
     <string name="checkout">Checkout</string>
     <string name="cart_button">Go to cart</string>
+    <string name="in_stock">In stock: %1$d</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="product_description">Description of the product goes here…</string>
+    <string name="product_amount">1</string>
+    <string name="purchase">Purchase</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -45,11 +45,11 @@ public class CartActivity extends AppCompatActivity {
         tvTotalPrice = findViewById(R.id.tvTotalPrice);
     }
 
-    private void showCartItems() {
+    public void showCartItems() {
         iCartDA cartDA = CartDAFactory.getInstance(this);
         Cart cart = cartDA.getCart();
 
-        ItemAdapter adapter = new ItemAdapter(this, cart.getItems());
+        ItemAdapter adapter = new ItemAdapter(this, cart.getItems(), false);
         rvCartItems.setAdapter(adapter);
 
         tvTotalPrice.setText(String.valueOf(cart.getTotalPrice()));
