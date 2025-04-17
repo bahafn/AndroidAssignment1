@@ -14,9 +14,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.androidassignment1.DataAccess.Cart.CartDAFactory;
+import com.example.androidassignment1.DataAccess.Item.Item;
+
 import java.util.Locale;
 
 public class ItemActivity extends AppCompatActivity {
+    public static final String ID = "ID";
     public static final String NAME = "NAME";
     public static final String DESCRIPTION = "DESCRIPTION";
     public static final String PRICE = "PRICE";
@@ -29,9 +33,17 @@ public class ItemActivity extends AppCompatActivity {
     private ImageView ivImage;
     private TextView txtAmount;
 
-    /** The amount of items available. */
+    /**
+     * An Item Object to save to cart if the user clicks add to cart.
+     */
+    private Item item;
+    /**
+     * The amount of items available.
+     */
     private int amount;
-    /** The amount the user wants to add to cart. */
+    /**
+     * The amount the user wants to add to cart.
+     */
     private int orderedAmount = 1;
 
     @Override
@@ -61,6 +73,13 @@ public class ItemActivity extends AppCompatActivity {
     private void getItemData() {
         Intent intent = getIntent();
 
+        item = new Item(intent.getIntExtra(ID, 0),
+                intent.getStringExtra(NAME),
+                intent.getStringExtra(DESCRIPTION),
+                intent.getIntExtra(IMAGE, R.drawable.no_image),
+                intent.getFloatExtra(PRICE, 0),
+                intent.getIntExtra(AMOUNT, 0));
+
         amount = intent.getIntExtra(AMOUNT, 0);
 
         txtProductName.setText(intent.getStringExtra(NAME));
@@ -72,7 +91,9 @@ public class ItemActivity extends AppCompatActivity {
         txtProductPrice.setText(priceString);
     }
 
-    /** Changes the behaviour of the back button. */
+    /**
+     * Changes the behaviour of the back button.
+     */
     private void setupBackButton() {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -85,22 +106,26 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void btnIncreaseOnClick(View view) {
-        if (orderedAmount == amount)
-            return;
+        if (orderedAmount >= amount) return;
 
         orderedAmount++;
         txtAmount.setText(String.valueOf(orderedAmount));
     }
 
     public void btnDecreaseOnClick(View view) {
-        if (orderedAmount == 0)
-            return;
+        if (orderedAmount <= 1) return;
 
         orderedAmount--;
         txtAmount.setText(String.valueOf(orderedAmount));
     }
 
     public void btnAddToCartOnClick(View view) {
+        item.setAmount(orderedAmount);
+        CartDAFactory.getInstance(this).addToCart(item);
 
+        // Go to cart activity
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -36,23 +36,38 @@ public class ItemDA implements iItemDA {
 
     @Override
     public List<Item> getItemsByName(String name) {
+        return getAllItems().stream().filter(item -> item.getName().equals(name)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Item getItemById(int id) {
+        return getAllItems().stream().filter(item -> item.getId() == id).findFirst().orElse(null);
+    }
+
+    @Override
+    public void saveItem(int itemIndex, Item item) {
         List<Item> items = getAllItems();
-        return items.stream().filter(item -> item.getName().equals(name)).collect(Collectors.toList());
+        items.set(itemIndex, item);
+        saveItems(items);
     }
 
     /** Creates default items and adds them to SharedPreferences. */
     private List<Item> createItems() {
         List<Item> items = new ArrayList<>();
-        items.add(new Item("Item1", "Item1 description", R.drawable.ic_launcher_background, 10, 5));
-        items.add(new Item("Item2", "Item2 description", R.drawable.logo, 20, 15));
-        items.add(new Item("Item3", "Item3 description", R.drawable.ic_launcher_background, 30, 2));
-        items.add(new Item("Item4", "Item4 description", R.drawable.ic_launcher_background, 5, 50));
-        items.add(new Item("Item5", "Item5 description", R.drawable.ic_launcher_background, 100, 10));
+        items.add(new Item(1, "Item1", "Item1 description", R.drawable.ic_launcher_background, 10, 5));
+        items.add(new Item(2, "Item2", "Item2 description", R.drawable.logo, 20, 15));
+        items.add(new Item(3, "Item3", "Item3 description", R.drawable.ic_launcher_background, 30, 2));
+        items.add(new Item(4, "Item4", "Item4 description", R.drawable.ic_launcher_background, 5, 50));
+        items.add(new Item(5, "Item5", "Item5 description", R.drawable.ic_launcher_background, 100, 10));
 
+        saveItems(items);
+
+        return items;
+    }
+
+    private void saveItems(List<Item> items) {
         String itemsString = gson.toJson(items);
         editor.putString(ITEMS, itemsString);
         editor.apply();
-
-        return items;
     }
 }

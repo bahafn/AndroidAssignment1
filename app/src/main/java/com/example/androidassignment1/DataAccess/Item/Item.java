@@ -3,18 +3,28 @@ package com.example.androidassignment1.DataAccess.Item;
 import androidx.annotation.NonNull;
 
 public class Item {
+    private int id;
     private String name;
     private String description;
     private int imageID;
     private float price;
     private int amount;
 
-    public Item(String name, String description, int imageID, float price, int amount) {
+    public Item(int id, String name, String description, int imageID, float price, int amount) {
+        setId(id);
         setName(name);
         setDescription(description);
         setImageID(imageID);
         setPrice(price);
         setAmount(amount);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -39,6 +49,10 @@ public class Item {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public void decreaseAmount(int delta) {
+        amount -= delta;
     }
 
     public String getDescription() {

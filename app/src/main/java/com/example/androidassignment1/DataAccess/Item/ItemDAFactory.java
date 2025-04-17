@@ -10,4 +10,8 @@ public class ItemDAFactory {
         SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.prefs_file), Context.MODE_PRIVATE);
         return new ItemDA(prefs);
     }
+
+    public static synchronized iItemDA getInstance(SharedPreferences prefs) {
+        return new ItemDA(prefs);
+    }
 }

@@ -49,6 +49,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         cardView.setOnClickListener(v -> {
             Intent intent = new Intent(activity, ItemActivity.class);
 
+            intent.putExtra(ItemActivity.ID, item.getId());
             intent.putExtra(ItemActivity.NAME, item.getName());
             intent.putExtra(ItemActivity.DESCRIPTION, item.getDescription());
             intent.putExtra(ItemActivity.PRICE, item.getPrice());
