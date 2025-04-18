@@ -77,10 +77,8 @@
         <Button
                 android:id="@+id/btnDecrease"
                 android:text="@string/minus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="0dp"
-                android:onClick="btnDecreaseOnClick" />
+                android:onClick="btnDecreaseOnClick"
+                style="@style/amount_buttons" />
 
         <TextView
                 android:id="@+id/txtAmount"
@@ -93,10 +91,8 @@
         <Button
                 android:id="@+id/btnIncrease"
                 android:text="@string/plus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="0dp"
-                android:onClick="btnIncreaseOnClick" />
+                android:onClick="btnIncreaseOnClick"
+                style="@style/amount_buttons" />
     </LinearLayout>
 
     <ScrollView
