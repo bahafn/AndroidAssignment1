@@ -23,6 +23,7 @@ public class ItemActivity extends AppCompatActivity {
     public static final String ID = "ID";
     public static final String NAME = "NAME";
     public static final String DESCRIPTION = "DESCRIPTION";
+    public static final String CATEGORY = "CATEGORY";
     public static final String PRICE = "PRICE";
     public static final String IMAGE = "IMAGE";
     public static final String AMOUNT = "AMOUNT";
@@ -78,6 +79,7 @@ public class ItemActivity extends AppCompatActivity {
         item = new Item(intent.getIntExtra(ID, 0),
                 intent.getStringExtra(NAME),
                 intent.getStringExtra(DESCRIPTION),
+                intent.getStringExtra(CATEGORY),
                 intent.getIntExtra(IMAGE, R.drawable.no_image),
                 intent.getFloatExtra(PRICE, 0),
                 intent.getIntExtra(AMOUNT, 0));
