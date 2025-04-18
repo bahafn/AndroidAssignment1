@@ -13,12 +13,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidassignment1.DataAccess.Item.Item;
+import com.example.androidassignment1.DataAccess.Item.SortBy;
 import com.example.androidassignment1.DataAccess.Item.ItemDAFactory;
 import com.example.androidassignment1.DataAccess.Item.iItemDA;
 
 import java.util.List;
 
 public class BrowseActivity extends AppCompatActivity {
+    public static final int SEARCH_REQUEST_CODE = 1;
+    public static final String NAME = "NAME";
+    public static final String CATEGORY = "CATEGORY";
+    public static final String SORT_BY = "SORT_BY";
+    public static final String SHOW_UNAVAILABLE = "SHOW_UNAVAILABLE";
+
     private RecyclerView rvItems;
 
     @Override
@@ -33,7 +40,26 @@ public class BrowseActivity extends AppCompatActivity {
         });
 
         setupViews();
-        showItems();
+        showAllItems();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SEARCH_REQUEST_CODE && resultCode == RESULT_OK)
+            handleSearch(data);
+    }
+
+    private void handleSearch(Intent data) {
+        String name = data.getStringExtra(NAME);
+        String category = data.getStringExtra(CATEGORY);
+        SortBy sortBy = SortBy.values()[data.getIntExtra(SORT_BY, SortBy.DEFAULT.ordinal())];
+        boolean showUnavailable = data.getBooleanExtra(SHOW_UNAVAILABLE, false);
+
+        iItemDA itemDA = ItemDAFactory.getInstance(this);
+        List<Item> items = itemDA.searchItems(name, category, sortBy, showUnavailable);
+        showItems(items);
     }
 
     private void setupViews() {
@@ -41,17 +67,20 @@ public class BrowseActivity extends AppCompatActivity {
         rvItems.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void showItems() {
+    private void showAllItems() {
         iItemDA itemDA = ItemDAFactory.getInstance(this);
         List<Item> items = itemDA.getAllAvailableItems();
+        showItems(items);
+    }
 
+    private void showItems(List<Item> items) {
         ItemAdapter adapter = new ItemAdapter(this, items, true);
         rvItems.setAdapter(adapter);
     }
 
     public void searchOnClick(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, SEARCH_REQUEST_CODE);
     }
 
     public void fabCartOnClick(View view) {
