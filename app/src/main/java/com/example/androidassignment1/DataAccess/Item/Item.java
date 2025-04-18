@@ -6,14 +6,16 @@ public class Item {
     private int id;
     private String name;
     private String description;
+    private String category;
     private int imageID;
     private float price;
     private int amount;
 
-    public Item(int id, String name, String description, int imageID, float price, int amount) {
+    public Item(int id, String name, String description, String category, int imageID, float price, int amount) {
         setId(id);
         setName(name);
         setDescription(description);
+        setCategory(category);
         setImageID(imageID);
         setPrice(price);
         setAmount(amount);
@@ -61,6 +63,14 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getImageID() {
