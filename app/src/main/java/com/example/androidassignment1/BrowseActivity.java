@@ -26,6 +26,12 @@ public class BrowseActivity extends AppCompatActivity {
     public static final String SORT_BY = "SORT_BY";
     public static final String SHOW_UNAVAILABLE = "SHOW_UNAVAILABLE";
 
+    // Theses variables are used to pass them to SearchActivity so it saves its state.
+    private String name;
+    private String category;
+    private SortBy sortBy;
+    private boolean showUnavailable;
+
     private RecyclerView rvItems;
 
     @Override
@@ -52,10 +58,10 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     private void handleSearch(Intent data) {
-        String name = data.getStringExtra(NAME);
-        String category = data.getStringExtra(CATEGORY);
-        SortBy sortBy = SortBy.values()[data.getIntExtra(SORT_BY, SortBy.DEFAULT.ordinal())];
-        boolean showUnavailable = data.getBooleanExtra(SHOW_UNAVAILABLE, false);
+        name = data.getStringExtra(NAME);
+        category = data.getStringExtra(CATEGORY);
+        sortBy = SortBy.values()[data.getIntExtra(SORT_BY, SortBy.DEFAULT.ordinal())];
+        showUnavailable = data.getBooleanExtra(SHOW_UNAVAILABLE, false);
 
         iItemDA itemDA = ItemDAFactory.getInstance(this);
         List<Item> items = itemDA.searchItems(name, category, sortBy, showUnavailable);
@@ -80,6 +86,12 @@ public class BrowseActivity extends AppCompatActivity {
 
     public void searchOnClick(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
+
+        intent.putExtra(NAME, name);
+        intent.putExtra(CATEGORY, category);
+        intent.putExtra(SORT_BY, sortBy != null ? sortBy.ordinal() : 0);
+        intent.putExtra(SHOW_UNAVAILABLE, showUnavailable);
+
         startActivityForResult(intent, SEARCH_REQUEST_CODE);
     }
 

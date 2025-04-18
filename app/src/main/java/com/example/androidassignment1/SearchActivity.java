@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -31,6 +32,9 @@ public class SearchActivity extends AppCompatActivity {
     private EditText edtSearch;
     private Spinner spnCategory;
     private RadioGroup rgSort;
+    private RadioButton rbDefault;
+    private RadioButton rbIncreasing;
+    private RadioButton rbDecreasing;
     private Switch swtShowUnavailable;
 
     @Override
@@ -47,12 +51,35 @@ public class SearchActivity extends AppCompatActivity {
         setupViews();
         setupAnimation();
         setupBackButton();
+        reenterInput();
+    }
+
+    protected void reenterInput() {
+        Intent intent = getIntent();
+
+        edtSearch.setText(intent.getStringExtra(BrowseActivity.NAME));
+        swtShowUnavailable.setChecked(intent.getBooleanExtra(BrowseActivity.SHOW_UNAVAILABLE, false));
+
+        @SuppressWarnings("unchecked")
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) spnCategory.getAdapter();
+        spnCategory.setSelection(adapter.getPosition(intent.getStringExtra(BrowseActivity.CATEGORY)));
+
+        int sortBy = intent.getIntExtra(BrowseActivity.SORT_BY, 0);
+        if (sortBy == SortBy.DEFAULT.ordinal())
+            rbDefault.setChecked(true);
+        else if (sortBy == SortBy.PRICE_INCREASING.ordinal())
+            rbIncreasing.setChecked(true);
+        else if (sortBy == SortBy.PRICE_DECREASING.ordinal())
+            rbDecreasing.setChecked(true);
     }
 
     private void setupViews() {
         edtSearch = findViewById(R.id.edtSearch);
         spnCategory = findViewById(R.id.spnCategory);
         rgSort = findViewById(R.id.rgSort);
+        rbDefault = findViewById(R.id.rbDefault);
+        rbIncreasing = findViewById(R.id.rbIncreasing);
+        rbDecreasing = findViewById(R.id.rbDecreasing);
         swtShowUnavailable = findViewById(R.id.swtShowUnavailable);
 
         // Add categories to spnCategory
