@@ -103,11 +103,19 @@ public class ItemActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Intent intent = new Intent(ItemActivity.this, BrowseActivity.class);
-                startActivity(intent);
-                finish();
+                back();
             }
         });
+    }
+
+    public void ivBackOnClick(View view) {
+        back();
+    }
+
+    private void back() {
+        Intent intent = new Intent(ItemActivity.this, BrowseActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void btnIncreaseOnClick(View view) {
