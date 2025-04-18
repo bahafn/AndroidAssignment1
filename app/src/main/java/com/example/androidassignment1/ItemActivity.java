@@ -3,6 +3,7 @@ package com.example.androidassignment1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +35,9 @@ public class ItemActivity extends AppCompatActivity {
     private TextView txtProductPrice;
     private ImageView ivImage;
     private TextView txtAmount;
+    private Button btnPurchase;
+    private Button btnIncrease;
+    private Button btnDecrease;
 
     /**
      * An Item Object to save to cart if the user clicks add to cart.
@@ -71,6 +75,9 @@ public class ItemActivity extends AppCompatActivity {
         txtProductPrice = findViewById(R.id.txtProductPrice);
         ivImage = findViewById(R.id.ivImage);
         txtAmount = findViewById(R.id.txtAmount);
+        btnPurchase = findViewById(R.id.btnPurchase);
+        btnIncrease = findViewById(R.id.btnIncrease);
+        btnDecrease = findViewById(R.id.btnDecrease);
     }
 
     private void getItemData() {
@@ -90,6 +97,18 @@ public class ItemActivity extends AppCompatActivity {
         txtProductDescription.setText(item.getDescription());
         txtAvailableAmount.setText(getString(R.string.in_stock, item.getAmount()));
         ivImage.setImageDrawable(ContextCompat.getDrawable(this, item.getImageID()));
+
+        if (amount <= 0) {
+            btnPurchase.setEnabled(false);
+            btnIncrease.setEnabled(false);
+            btnDecrease.setEnabled(false);
+
+            btnPurchase.setBackgroundColor(getColor(R.color.grey));
+            btnIncrease.setBackgroundColor(getColor(R.color.grey));
+            btnDecrease.setBackgroundColor(getColor(R.color.grey));
+
+            txtAmount.setText(String.valueOf(0));
+        }
 
         float price = item.getPrice();
         String priceString = String.format(Locale.getDefault(), "%.2f$", price);
