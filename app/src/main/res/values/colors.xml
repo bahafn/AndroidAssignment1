@@ -3,4 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#E5E5E5</color>
+    <color name="default_blue">#52adb4</color>
+    <color name="background">#f2f1e9</color>
+    <color name="price_green">#4CAF50</color>
+    <color name="add_to_cart_button">#FF9800</color>
+    <color name="grey_text">#757575</color>
 </resources>

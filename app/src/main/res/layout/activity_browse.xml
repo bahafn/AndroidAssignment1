@@ -15,7 +15,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#52adb4">
+                android:background="@color/default_blue">
 
             <ImageView
                     android:layout_width="50dp"
@@ -46,7 +46,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"
-                android:background="#f2f1e9"
+                android:background="@color/background"
                 style="@style/BackgroundStyle" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 

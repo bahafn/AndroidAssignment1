@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#52adb4"
+            android:background="@color/default_blue"
             android:padding="8dp">
 
         <ImageView
@@ -52,13 +52,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#f2f1e9"
+            android:background="@color/background"
             android:padding="8dp" />
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
+            android:background="@color/white"
             android:padding="16dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
@@ -78,7 +78,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="$0.00"
+                android:text="@string/zero_dollars"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/checkout"
-                android:backgroundTint="#52adb4"
+                android:backgroundTint="@color/default_blue"
                 android:textColor="@android:color/white"
                 android:onClick="btnCheckoutOnClick" />
     </LinearLayout>
