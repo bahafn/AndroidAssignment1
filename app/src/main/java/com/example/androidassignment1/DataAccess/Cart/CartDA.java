@@ -50,7 +50,7 @@ public class CartDA implements iCartDA {
         for (Item cartItem : cart.getItems())
             checkout(cart, items, cartItem, false);
 
-        cart.getItems().clear();
+        cart.removeAllItems();
         saveCart(cart);
         itemDA.saveItems(items);
     }

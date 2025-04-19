@@ -36,4 +36,9 @@ public class Cart {
     public float getTotalPrice() {
         return totalPrice;
     }
+
+    public void removeAllItems() {
+        items.clear();
+        totalPrice = 0;
+    }
 }
