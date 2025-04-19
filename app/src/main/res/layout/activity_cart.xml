@@ -13,56 +13,41 @@
 
         <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
                 android:src="@drawable/ic_back"
-                android:contentDescription="@string/back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:onClick="ivBackOnClick"/>
+                android:onClick="ivBackOnClick"
+                android:contentDescription="@string/back"
+                style="@style/IconStyle" />
 
         <TextView
                 android:id="@+id/tvCartTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/cart_title"
-                android:textSize="20sp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/ivBack"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ivCartIcon"
-                app:layout_constraintHorizontal_bias="0.5"/>
+                app:layout_constraintHorizontal_bias="0.5"
+                style="@style/TitleText" />
 
         <ImageView
                 android:id="@+id/ivCartIcon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
                 android:src="@drawable/ic_cart"
                 android:contentDescription="@string/cart_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                style="@style/IconStyle"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCartItems"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/background"
-            android:padding="8dp" />
+            android:padding="8dp"
+            style="@style/BackgroundStyle"/>
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:padding="16dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:elevation="4dp">
+    <LinearLayout style="@style/BottomBarStyle">
 
         <TextView
                 android:id="@+id/tvTotalLabel"
@@ -84,12 +69,9 @@
 
         <Button
                 android:id="@+id/btnCheckout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/checkout"
-                android:backgroundTint="@color/default_blue"
-                android:textColor="@android:color/white"
-                android:onClick="btnCheckoutOnClick" />
+                android:onClick="btnCheckoutOnClick"
+                style="@style/ButtonStyle" />
     </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

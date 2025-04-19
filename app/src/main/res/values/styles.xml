@@ -52,14 +52,14 @@
     <style name="BackgroundStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">#f2f1e9</item>
+        <item name="android:background">@color/background</item>
     </style>
 
     <style name="SearchBackground">
         <item name="android:padding">16dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">#f2f1e9</item>
+        <item name="android:background">@color/background</item>
     </style>
 
     <style name="Transparent" parent="Theme.AppCompat.Light.NoActionBar">
@@ -70,10 +70,118 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="amount_buttons">
+    <style name="AmountButton">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:padding">0dp</item>
-        <item name="android:backgroundTint">#52adb4</item>
+        <item name="android:backgroundTint">@color/default_blue</item>
+    </style>
+
+    <style name="BrowseLogoStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+    </style>
+
+    <style name="SearchTextStyle">
+        <item name="android:layout_width">330dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:inputType">text</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:focusable">false</item>
+    </style>
+
+    <style name="IconStyle">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+    </style>
+
+    <style name="TitleText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BottomBarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/default_blue</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AmountSelector">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="ProductImageStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">250dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="BackButtonStyle">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+    </style>
+
+    <style name="ProductNameStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="ProductPriceStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/price_green</item>
+    </style>
+
+    <style name="SmallTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/grey_text</item>
+    </style>
+
+    <style name="BigButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/add_to_cart_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <style name="ScrollViewStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="SplashLogoStyle" parent="LogoStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxHeight">200dp</item>
+        <item name="android:maxWidth">200dp</item>
+        <item name="android:layout_marginTop">225dp</item>
+        <item name="android:layout_marginEnd">90dp</item>
     </style>
 </resources>

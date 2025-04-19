@@ -7,18 +7,14 @@
 
     <ImageView
             android:id="@+id/ivImage"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/product_image"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/product_image"
+            style="@style/ProductImageStyle" />
 
     <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
             android:src="@drawable/ic_back"
             android:contentDescription="@string/back"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,59 +22,47 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="ivBackOnClick"
             app:layout_constraintVertical_bias="0.022"
-            android:layout_marginStart="12dp" />
+            style="@style/BackButtonStyle" />
 
     <TextView
             android:id="@+id/txtProductName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:text="@string/product_name"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:padding="16dp"
             app:layout_constraintTop_toBottomOf="@id/ivImage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/ProductNameStyle" />
 
     <TextView
             android:id="@+id/txtProductPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/product_price"
             android:textSize="20sp"
-            android:textColor="@color/price_green"
+            app:layout_constraintTop_toBottomOf="@id/txtProductName"
+            app:layout_constraintStart_toStartOf="parent"
             android:padding="4dp"
             android:layout_marginStart="12dp"
-            app:layout_constraintTop_toBottomOf="@id/txtProductName"
-            app:layout_constraintStart_toStartOf="parent" />
+            style="@style/ProductPriceStyle" />
 
     <TextView
             android:id="@+id/txtAvailableAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/in_stock"
-            android:textSize="16sp"
-            android:textColor="@color/grey_text"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="4dp"
             app:layout_constraintTop_toBottomOf="@id/txtProductPrice"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/SmallTextStyle" />
 
     <LinearLayout
             android:id="@+id/quantitySelector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="4dp"
             app:layout_constraintTop_toBottomOf="@id/txtProductName"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/AmountSelector">
 
         <Button
                 android:id="@+id/btnDecrease"
                 android:text="@string/minus"
                 android:onClick="btnDecreaseOnClick"
-                style="@style/amount_buttons" />
+                style="@style/AmountButton" />
 
         <TextView
                 android:id="@+id/txtAmount"
@@ -92,19 +76,16 @@
                 android:id="@+id/btnIncrease"
                 android:text="@string/plus"
                 android:onClick="btnIncreaseOnClick"
-                style="@style/amount_buttons" />
+                style="@style/AmountButton" />
     </LinearLayout>
 
     <ScrollView
             android:id="@+id/scrollView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="16dp"
-            android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@id/txtProductPrice"
             app:layout_constraintBottom_toTopOf="@id/btnPurchase"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/ScrollViewStyle">
 
         <TextView
                 android:id="@+id/txtDescription"
@@ -116,16 +97,11 @@
 
     <Button
             android:id="@+id/btnPurchase"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:text="@string/add_to_cart"
-            android:backgroundTint="@color/add_to_cart_button"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_margin="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="btnAddToCartOnClick" />
+            android:onClick="btnAddToCartOnClick"
+            style="@style/BigButtonStyle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

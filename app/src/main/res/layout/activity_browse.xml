@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        style="@style/BackgroundStyle">
 
     <androidx.appcompat.widget.LinearLayoutCompat
             android:orientation="vertical"
             android:id="@+id/main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             style="@style/BackgroundStyle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,27 +15,21 @@
                 android:background="@color/default_blue">
 
             <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:contentDescription="@string/app_logo"
                     android:src="@drawable/logo_full"
                     android:id="@+id/ivLogo"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:onClick="ivLogoOnClick" />
+                    android:onClick="ivLogoOnClick"
+                    style="@style/BrowseLogoStyle"
+                    android:contentDescription="@string/app_logo" />
 
             <EditText
-                    android:layout_width="330dp"
-                    android:layout_height="match_parent"
-                    android:autofillHints="Product Name"
                     android:hint="@string/search"
-                    android:inputType="text"
                     app:layout_constraintStart_toEndOf="@+id/ivLogo"
-                    android:layout_marginStart="16dp"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="4dp"
-                    android:focusable="false"
-                    android:onClick="searchOnClick" />
+                    android:onClick="searchOnClick"
+                    android:autofillHints="Product Name"
+                    style="@style/SearchTextStyle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -60,5 +51,5 @@
             android:layout_marginBottom="23dp"
             android:contentDescription="@string/cart_button"
             app:srcCompat="@drawable/ic_cart"
-            android:onClick="fabCartOnClick"/>
+            android:onClick="fabCartOnClick" />
 </FrameLayout>

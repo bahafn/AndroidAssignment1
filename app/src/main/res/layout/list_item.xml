@@ -50,12 +50,10 @@
 
             <TextView
                     android:id="@+id/txtPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/product_price"
                     android:textStyle="bold"
-                    android:textColor="@color/price_green"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    style="@style/ProductPriceStyle" />
 
             <LinearLayout
                     style="?android:attr/buttonBarStyle"
