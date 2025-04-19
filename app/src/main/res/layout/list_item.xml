@@ -9,10 +9,9 @@
         card_view:cardCornerRadius="8dp"
         card_view:cardElevation="4dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:padding="8dp">
 
         <ImageView
@@ -20,69 +19,85 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                android:contentDescription="@string/product_image" />
+                android:contentDescription="@string/product_image"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintVertical_bias="0.0"
+                card_view:layout_constraintHorizontal_bias="0.0"/>
 
-        <LinearLayout
+        <TextView
+                android:id="@+id/txtName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp">
+                android:text="@string/product_name"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                card_view:layout_constraintStart_toEndOf="@id/image"
+                card_view:layout_constraintTop_toTopOf="@id/image"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
 
-            <TextView
-                    android:id="@+id/txtName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/product_name"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold" />
+        <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/product_description"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:maxLines="2"
+                android:ellipsize="end"
+                card_view:layout_constraintStart_toStartOf="@id/txtName"
+                card_view:layout_constraintTop_toBottomOf="@id/txtName"
+                card_view:layout_constraintEnd_toEndOf="@id/txtName"
+                android:layout_marginTop="4dp" />
 
-            <TextView
-                    android:id="@+id/txtDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/product_description"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:layout_marginTop="4dp"
-                    android:maxLines="2"
-                    android:ellipsize="end" />
+        <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_price"
+                android:textStyle="bold"
+                style="@style/ProductPriceStyle"
+                card_view:layout_constraintStart_toStartOf="@id/txtName"
+                card_view:layout_constraintTop_toBottomOf="@id/txtDescription"
+                android:layout_marginTop="8dp" />
 
-            <TextView
-                    android:id="@+id/txtPrice"
-                    android:text="@string/product_price"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"
-                    style="@style/ProductPriceStyle" />
+        <Button
+                android:id="@+id/btnPurchase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_cart"
+                android:backgroundTint="@color/add_to_cart_button"
+                android:textColor="@android:color/white"
+                style="?android:attr/buttonBarButtonStyle"
+                card_view:layout_constraintTop_toBottomOf="@id/txtPrice"
+                card_view:layout_constraintStart_toStartOf="@id/txtPrice"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp" />
 
-            <LinearLayout
-                    style="?android:attr/buttonBarStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+        <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:backgroundTint="@color/add_to_cart_button"
+                android:textColor="@android:color/white"
+                android:visibility="invisible"
+                style="?android:attr/buttonBarButtonStyle"
+                card_view:layout_constraintTop_toTopOf="@id/btnPurchase"
+                card_view:layout_constraintStart_toEndOf="@id/btnPurchase"
+                tools:ignore="ButtonOrder" />
 
-                <Button
-                        android:id="@+id/btnPurchase"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/add_to_cart"
-                        android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/add_to_cart_button"
-                        android:textColor="@android:color/white"
-                        android:layout_marginEnd="16dp" />
+        <TextView
+                android:text="@string/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtAmount"
+                card_view:layout_constraintStart_toEndOf="@+id/txtPrice"
+                android:layout_marginStart="40dp"
+                card_view:layout_constraintTop_toBottomOf="@+id/txtDescription"
+                android:layout_marginTop="8dp" />
 
-                <Button
-                        android:id="@+id/btnCancel"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/cancel"
-                        android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/add_to_cart_button"
-                        android:textColor="@android:color/white"
-                        tools:ignore="ButtonOrder"
-                        android:visibility="invisible" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

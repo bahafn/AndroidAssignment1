@@ -55,28 +55,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         if (viewType == NORMAL_VIEW_TYPE)
             v = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        else {
-            TextView textView = new TextView(parent.getContext());
-            textView.setText(R.string.no_items_found);
-            textView.setTextSize(18);
-            textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
-
-            CardView cardView = new CardView(parent.getContext());
-            cardView.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-            ));
-            cardView.setUseCompatPadding(true);
-
-            cardView.addView(textView, new CardView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-            ));
-
-            textView.setGravity(android.view.Gravity.CENTER);
-
-            v = cardView;
-        }
+        else
+            v = createEmptyTextView(parent);
 
         return new ViewHolder(v);
     }
@@ -101,6 +81,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         TextView txtDescription = cardView.findViewById(R.id.txtDescription);
         txtDescription.setText(item.getDescription());
+
+        TextView txtAmount = cardView.findViewById(R.id.txtAmount);
+        txtAmount.setText(activity.getString(R.string.amount, item.getAmount()));
 
         Button btnPurchase = cardView.findViewById(R.id.btnPurchase);
         if (browsing) {
@@ -163,6 +146,29 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         iCartDA cartDA = CartDAFactory.getInstance(activity);
         cartDA.removeItem(itemIndex);
         ((CartActivity) activity).showCartItems();
+    }
+
+    private static CardView createEmptyTextView(ViewGroup parent) {
+        TextView textView = new TextView(parent.getContext());
+        textView.setText(R.string.no_items_found);
+        textView.setTextSize(18);
+        textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+
+        CardView cardView = new CardView(parent.getContext());
+        cardView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+        cardView.setUseCompatPadding(true);
+
+        cardView.addView(textView, new CardView.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        textView.setGravity(android.view.Gravity.CENTER);
+
+        return cardView;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
