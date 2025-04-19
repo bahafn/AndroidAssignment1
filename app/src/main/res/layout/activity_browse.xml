@@ -24,7 +24,8 @@
                     android:src="@drawable/logo_full"
                     android:id="@+id/ivLogo"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="ivLogoOnClick" />
 
             <EditText
                     android:layout_width="330dp"

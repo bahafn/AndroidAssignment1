@@ -99,4 +99,8 @@ public class BrowseActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
+
+    public void ivLogoOnClick(View view) {
+        showAllItems();
+    }
 }
