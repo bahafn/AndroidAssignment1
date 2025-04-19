@@ -88,6 +88,8 @@ public class SearchActivity extends AppCompatActivity {
         categories.add(0, "Any");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, categories);
         spnCategory.setAdapter(adapter);
+
+        edtSearch.requestFocus();
     }
 
     private void setupAnimation() {
