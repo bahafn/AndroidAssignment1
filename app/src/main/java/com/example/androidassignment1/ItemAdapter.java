@@ -21,6 +21,10 @@ import java.util.List;
 import java.util.Locale;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+    // Possible view types
+    private static final int EMPTY_VIEW_TYPE = 0;
+    private static final int NORMAL_VIEW_TYPE = 1;
+
     private final List<Item> items;
     private final AppCompatActivity activity;
 
@@ -35,15 +39,52 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         this.browsing = browsing;
     }
 
+    public int getItemViewType(int position) {
+        if (items.isEmpty())
+            return EMPTY_VIEW_TYPE;
+        else
+            return NORMAL_VIEW_TYPE;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CardView v = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        CardView v;
+
+        if (viewType == NORMAL_VIEW_TYPE)
+            v = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        else {
+            TextView textView = new TextView(parent.getContext());
+            textView.setText(R.string.no_items_found);
+            textView.setTextSize(18);
+            textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+
+            CardView cardView = new CardView(parent.getContext());
+            cardView.setLayoutParams(new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            ));
+            cardView.setUseCompatPadding(true);
+
+            cardView.addView(textView, new CardView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            ));
+
+            textView.setGravity(android.view.Gravity.CENTER);
+
+            v = cardView;
+        }
+
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // If there are no items do nothing
+        if (getItemViewType(position) == EMPTY_VIEW_TYPE)
+            return;
+
         Item item = items.get(position);
         CardView cardView = holder.cardView;
 
@@ -62,23 +103,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         Button btnPurchase = cardView.findViewById(R.id.btnPurchase);
         if (browsing) {
             btnPurchase.setOnClickListener(v -> addToCart(item));
-
-            cardView.setOnClickListener(v -> {
-                Intent intent = new Intent(activity, ItemActivity.class);
-
-                intent.putExtra(ItemActivity.ID, item.getId());
-                intent.putExtra(ItemActivity.NAME, item.getName());
-                intent.putExtra(ItemActivity.DESCRIPTION, item.getDescription());
-                intent.putExtra(ItemActivity.CATEGORY, item.getCategory());
-                intent.putExtra(ItemActivity.PRICE, item.getPrice());
-                intent.putExtra(ItemActivity.IMAGE, item.getImageID());
-                intent.putExtra(ItemActivity.AMOUNT, item.getAmount());
-
-                activity.startActivity(intent);
-                activity.finish();
-            });
-        }
-        else {
+            cardView.setOnClickListener(v -> goToItemActivity(item));
+        } else {
             btnPurchase.setText(R.string.purchase);
             btnPurchase.setOnClickListener(v -> purchase(position));
 
@@ -90,7 +116,24 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return items.size();
+        // Returns 1 if no items are found so the onCreateViewHolder method
+        // is called and the no items found text is shown.
+        return Math.max(items.size(), 1);
+    }
+
+    private void goToItemActivity(Item item) {
+        Intent intent = new Intent(activity, ItemActivity.class);
+
+        intent.putExtra(ItemActivity.ID, item.getId());
+        intent.putExtra(ItemActivity.NAME, item.getName());
+        intent.putExtra(ItemActivity.DESCRIPTION, item.getDescription());
+        intent.putExtra(ItemActivity.CATEGORY, item.getCategory());
+        intent.putExtra(ItemActivity.PRICE, item.getPrice());
+        intent.putExtra(ItemActivity.IMAGE, item.getImageID());
+        intent.putExtra(ItemActivity.AMOUNT, item.getAmount());
+
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     private void addToCart(Item item) {
