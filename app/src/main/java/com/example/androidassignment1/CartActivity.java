@@ -20,6 +20,8 @@ import com.example.androidassignment1.DataAccess.Cart.CartDAFactory;
 import com.example.androidassignment1.DataAccess.Cart.InsufficientStockException;
 import com.example.androidassignment1.DataAccess.Cart.iCartDA;
 
+import java.util.Locale;
+
 public class CartActivity extends AppCompatActivity {
     private RecyclerView rvCartItems;
     private TextView tvTotalPrice;
@@ -54,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
         ItemAdapter adapter = new ItemAdapter(this, cart.getItems(), false);
         rvCartItems.setAdapter(adapter);
 
-        tvTotalPrice.setText(String.valueOf(cart.getTotalPrice()));
+        tvTotalPrice.setText(String.format(Locale.getDefault(), "%.2f$", cart.getTotalPrice()));
     }
 
     public void ivBackOnClick(View view) {
