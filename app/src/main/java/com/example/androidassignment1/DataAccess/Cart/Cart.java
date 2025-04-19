@@ -28,6 +28,11 @@ public class Cart {
         totalPrice -= item.getPrice() * item.getAmount();
     }
 
+    public void removeItem(Item item) {
+        if (items.remove(item))
+            totalPrice -= item.getPrice() * item.getAmount();
+    }
+
     public float getTotalPrice() {
         return totalPrice;
     }

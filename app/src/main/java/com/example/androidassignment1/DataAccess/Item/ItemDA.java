@@ -26,7 +26,8 @@ public class ItemDA implements iItemDA {
         gson = new Gson();
     }
 
-    private List<Item> getAllItems() {
+    @Override
+    public List<Item> getAllItems() {
         String itemsString = prefs.getString(ITEMS, null);
         if (itemsString == null)
             return createItems();
@@ -46,7 +47,7 @@ public class ItemDA implements iItemDA {
 
         if (!showUnavailable)
             itemsStream = itemsStream.filter(item -> item.getAmount() > 0);
-        if (name == null || !name.isBlank())
+        if (!name.isBlank())
             itemsStream = itemsStream.filter(item -> item.getName().toLowerCase().contains(name.toLowerCase()));
         if (category == null || !category.equals("Any"))
             itemsStream = itemsStream.filter(item -> item.getCategory().equalsIgnoreCase(category));
@@ -59,18 +60,6 @@ public class ItemDA implements iItemDA {
             items.sort(Comparator.comparingDouble(Item::getPrice).reversed());
 
         return items;
-    }
-
-    @Override
-    public Item getItemById(int id) {
-        return getAllItems().stream().filter(item -> item.getId() == id).findFirst().orElse(null);
-    }
-
-    @Override
-    public void saveItem(int itemIndex, Item item) {
-        List<Item> items = getAllAvailableItems();
-        items.set(itemIndex, item);
-        saveItems(items);
     }
 
     @Override
@@ -95,7 +84,7 @@ public class ItemDA implements iItemDA {
         return items;
     }
 
-    private void saveItems(List<Item> items) {
+    public void saveItems(List<Item> items) {
         String itemsString = gson.toJson(items);
         editor.putString(ITEMS, itemsString);
         editor.apply();

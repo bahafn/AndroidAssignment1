@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidassignment1.DataAccess.Cart.CartDAFactory;
+import com.example.androidassignment1.DataAccess.Cart.InsufficientStockException;
 import com.example.androidassignment1.DataAccess.Cart.iCartDA;
 import com.example.androidassignment1.DataAccess.Item.Item;
 
@@ -106,7 +108,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             cardView.setOnClickListener(v -> goToItemActivity(item));
         } else {
             btnPurchase.setText(R.string.purchase);
-            btnPurchase.setOnClickListener(v -> purchase(position));
+            btnPurchase.setOnClickListener(v -> purchase(item));
 
             Button btnCancel = cardView.findViewById(R.id.btnCancel);
             btnCancel.setVisibility(ViewGroup.VISIBLE);
@@ -146,10 +148,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         activity.finish();
     }
 
-    private void purchase(int itemIndex) {
+    private void purchase(Item item) {
         iCartDA cartDA = CartDAFactory.getInstance(activity);
-        cartDA.checkout(itemIndex);
-        ((CartActivity) activity).showCartItems();
+
+        try {
+            cartDA.checkout(item);
+            ((CartActivity) activity).showCartItems();
+        } catch (InsufficientStockException ise) {
+            Toast.makeText(activity, ise.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void cancel(int itemIndex) {

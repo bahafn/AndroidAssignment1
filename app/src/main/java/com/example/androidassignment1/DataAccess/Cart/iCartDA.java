@@ -7,8 +7,8 @@ public interface iCartDA {
     void addToCart(Item item);
     void saveCart(Cart cart);
     /** Finalizes purchase of all items in cart. */
-    void checkout();
+    void checkout() throws InsufficientStockException;
     /** Finalizes purchase of a cart item. */
-    void checkout(int itemIndex);
+    void checkout(Item item) throws InsufficientStockException;
     void removeItem(int itemIndex);
 }

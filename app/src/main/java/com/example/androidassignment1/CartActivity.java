@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidassignment1.DataAccess.Cart.Cart;
 import com.example.androidassignment1.DataAccess.Cart.CartDAFactory;
+import com.example.androidassignment1.DataAccess.Cart.InsufficientStockException;
 import com.example.androidassignment1.DataAccess.Cart.iCartDA;
 
 public class CartActivity extends AppCompatActivity {
@@ -61,8 +63,14 @@ public class CartActivity extends AppCompatActivity {
 
     public void btnCheckoutOnClick(View view) {
         iCartDA cartDA = CartDAFactory.getInstance(this);
-        cartDA.checkout();
-        back();
+
+        try {
+            cartDA.checkout();
+            back();
+        } catch (InsufficientStockException ise) {
+            Toast.makeText(this, ise.getMessage(), Toast.LENGTH_LONG).show();
+            showCartItems();
+        }
     }
 
     private void setupBackButton() {

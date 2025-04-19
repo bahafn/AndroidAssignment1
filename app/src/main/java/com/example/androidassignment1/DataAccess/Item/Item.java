@@ -53,7 +53,10 @@ public class Item {
         this.amount = amount;
     }
 
-    public void decreaseAmount(int delta) {
+    public void decreaseAmount(int delta) throws IllegalArgumentException {
+        if (delta > amount)
+            throw new IllegalArgumentException("Delta can't be bigger than amount.");
+
         amount -= delta;
     }
 
@@ -85,5 +88,14 @@ public class Item {
     @Override
     public String toString() {
         return getName();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Item))
+            return false;
+
+        Item item = (Item) other;
+        return this.getId() == item.getId() && this.getAmount() == item.getAmount();
     }
 }

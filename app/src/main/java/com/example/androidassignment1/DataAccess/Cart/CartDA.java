@@ -7,6 +7,8 @@ import com.example.androidassignment1.DataAccess.Item.ItemDAFactory;
 import com.example.androidassignment1.DataAccess.Item.iItemDA;
 import com.google.gson.Gson;
 
+import java.util.List;
+
 public class CartDA implements iCartDA {
     private static final String CART = "CART";
 
@@ -40,18 +42,26 @@ public class CartDA implements iCartDA {
         saveCart(cart);
     }
 
-    public void checkout() {
+    public void checkout() throws InsufficientStockException {
+        iItemDA itemDA = ItemDAFactory.getInstance(prefs);
+        List<Item> items = itemDA.getAllItems();
+
         Cart cart = getCart();
-        for (int i = 0; i < cart.getItems().size(); i++)
-            checkout(cart, i, false);
+        for (Item cartItem : cart.getItems())
+            checkout(cart, items, cartItem, false);
 
         cart.getItems().clear();
         saveCart(cart);
+        itemDA.saveItems(items);
     }
 
-    public void checkout(int itemIndex) {
+    public void checkout(Item cartItem) throws InsufficientStockException {
+        iItemDA itemDA = ItemDAFactory.getInstance(prefs);
+        List<Item> items = itemDA.getAllItems();
+
         Cart cart = getCart();
-        checkout(cart, itemIndex, true);
+        checkout(cart, items, cartItem, true);
+        itemDA.saveItems(items);
     }
 
     public void removeItem(int itemIndex) {
@@ -60,16 +70,16 @@ public class CartDA implements iCartDA {
         saveCart(cart);
     }
 
-    private void checkout(Cart cart, int itemIndex, boolean changeCart) {
-        Item cartItem = cart.getItems().get(itemIndex);
+    private void checkout(Cart cart, List<Item> items, Item cartItem, boolean changeCart) throws InsufficientStockException {
+        Item item = items.get(cartItem.getId() - 1);
 
-        iItemDA itemDA = ItemDAFactory.getInstance(prefs);
-        Item item = itemDA.getItemById(cartItem.getId());
+        if (item.getAmount() < cartItem.getAmount())
+            throw new InsufficientStockException(item, cartItem.getAmount());
+
         item.decreaseAmount(cartItem.getAmount());
-        itemDA.saveItem(itemIndex, item);
 
         if (changeCart) {
-            cart.removeItem(itemIndex);
+            cart.removeItem(cartItem);
             saveCart(cart);
         }
     }
